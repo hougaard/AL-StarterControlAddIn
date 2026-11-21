@@ -16,7 +16,7 @@ A control add-in lets you put your own HTML, CSS and JavaScript inside a Busines
 
 ## Requirements
 
-- Business Central 29 or later (AL runtime 18.0)
+- Business Central 26 or later (AL runtime 15.0)
 - Visual Studio Code with the [AL Language extension](https://marketplace.visualstudio.com/items?itemName=ms-dynamics-smb.al)
 - A Business Central sandbox to publish to: an online sandbox, a Docker container, or an on-premises server
 
