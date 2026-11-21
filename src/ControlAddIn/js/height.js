@@ -8,8 +8,8 @@
  * height there. Three modes:
  *
  *   standard()     leave the height to Business Central (undo the other two)
- *   fill(offset)   fill the page the add-in sits on, less offset pixels, and
- *                  follow window resizes
+ *   fill(offset)   fill the page the add-in sits on (in a FactBox: the whole
+ *                  FactBox pane), less offset pixels, and follow window resizes
  *   fixed(pixels)  an exact height, set from AL
  */
 window.StarterHeight = (function () {
@@ -20,6 +20,9 @@ window.StarterHeight = (function () {
     const MIN_PAGE_HEIGHT = 200;
     // Height of the Role Center chrome that a part on it cannot use.
     const ROLE_CENTER_CHROME = 184;
+    // Height of the FactBox pane that a part in it cannot use: the pane's header,
+    // the part's caption and the padding around them.
+    const FACTBOX_CHROME = 71;
 
     const originals = new WeakMap(); // frame -> the inline heights Business Central gave it
     let mode = 'standard';
@@ -49,8 +52,17 @@ window.StarterHeight = (function () {
         frame.style.minHeight = pinMinimum ? value : originals.get(frame).minHeight;
     }
 
-    /** The height the frame can take in fill mode. */
+    /** The height the frame can take in fill mode, or null when there is nothing to measure. */
     function availableHeight(frame) {
+        // A FactBox: the part is only as tall as its content, the FactBox pane is the
+        // room to fill. Checked first, because a part that is already tall would
+        // otherwise pass for a page and be fitted to its own height.
+        const factBoxPane = frame.closest('div[class~="ms-nav-layout-factbox-pane-container"]');
+        if (factBoxPane) {
+            // A pane that is not displayed has no height; keep the height the frame has.
+            if (!factBoxPane.offsetHeight) return null;
+            return factBoxPane.offsetHeight - FACTBOX_CHROME - fillOffset;
+        }
         // The page (or part) that hosts the add-in.
         const form = frame.closest('div[class~="control-addin-form"]');
         if (form && form.offsetHeight >= MIN_PAGE_HEIGHT) {
@@ -71,7 +83,8 @@ window.StarterHeight = (function () {
         // The page was closed or the mode changed: the listener has nothing left to do.
         if (mode !== 'fill' || !frame || !frame.isConnected) { stopListening(); return; }
         try {
-            setFrameHeight(frame, availableHeight(frame), false);
+            const height = availableHeight(frame);
+            if (height !== null) setFrameHeight(frame, height, false);
         } catch (e) {
             log('could not fit the frame: ' + e);
         }
@@ -106,9 +119,10 @@ window.StarterHeight = (function () {
 
     /**
      * Mode 2: fill the page, and keep filling it when the browser window is resized.
+     * In a FactBox it is the whole FactBox pane that is filled.
      * Offset is the number of pixels to leave free: the margins and padding around
-     * the frame that would otherwise give the page a scrollbar. A negative offset
-     * makes the frame taller.
+     * the frame that would otherwise give the page a scrollbar, or the room other
+     * FactBoxes in the pane should keep. A negative offset makes the frame taller.
      */
     function fill(offset) {
         const frame = getFrame();

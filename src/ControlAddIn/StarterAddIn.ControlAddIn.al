@@ -55,6 +55,8 @@ controladdin "Starter AddIn"
     /// Height mode 2: fill the page the add-in is on, and follow the browser window when it is resized.
     /// Offset is the number of pixels to leave free, for the margins around the add-in; raise it if the
     /// page gets a scrollbar, lower it if there is a gap. 10 suits a page where the add-in is the only content.
+    /// In a FactBox the add-in takes over the whole FactBox pane; use 0 there, or the number of pixels the
+    /// other FactBoxes in the pane should keep.
     /// </summary>
     procedure FillParent(Offset: Integer);
 

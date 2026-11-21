@@ -34,7 +34,7 @@ A control add-in lets you put your own HTML, CSS and JavaScript inside a Busines
 | --- | --- | --- |
 | Starter Add-in Host | `UserControlHost` | The add-in on its own, filling the page. This page type cannot have actions or fields, so the buttons that switch the height are in the HTML. |
 | Starter Add-in Card | `Card` | The add-in below ordinary fields. The **Height Mode**, **Fill Offset (px)** and **Height (px)** fields control it, and **Last Message** shows what the add-in sent back. |
-| Starter Add-in (FactBox) | `CardPart` | The add-in in a FactBox on the card page, held at a fixed height. |
+| Starter Add-in (FactBox) | `CardPart` | The add-in in a FactBox on the card page. It starts at a fixed height; its buttons switch it to the standard height or let it take over the whole FactBox pane. |
 
 ## How it works
 
@@ -73,14 +73,16 @@ CurrPage.AddIn.SetCaptions(Captions);
 | Procedure | Result |
 | --- | --- |
 | `UseStandardHeight()` | The size Business Central works out from `RequestedHeight`, `MinimumHeight` and `VerticalStretch` on the control add-in. |
-| `FillParent(Offset)` | The add-in fills the page it is on, and follows the browser window when it is resized. `Offset` is the number of pixels to leave free for the margins around it. |
+| `FillParent(Offset)` | The add-in fills the page it is on, and follows the browser window when it is resized. `Offset` is the number of pixels to leave free for the margins around it. In a FactBox, the add-in takes over the whole FactBox pane. |
 | `SetHeight(Pixels)` | An exact height. |
 
 Business Central puts the add-in in an iframe and often keeps it small however much room the page has. The add-in can reach its own iframe element in the host page, so `FillParent` and `SetHeight` set the height there.
 
 How much room the page has around the add-in depends on the page type and on what else is on the page, so `FillParent` takes the offset from you. Start with `FillParent(10)`. Raise the number if the page gets a scrollbar, and lower it if there is a gap below the add-in. The **Fill Offset (px)** field on the card test page lets you try values without republishing.
 
-The logic is in [height.js](src/ControlAddIn/js/height.js). It relies on class names in the Business Central web client, which Microsoft can change; the two constants at the top of the file are the places to adjust.
+A FactBox is only as tall as its content, so there are two choices for an add-in in one. `SetHeight(Pixels)` gives it an exact height and leaves the rest of the pane to the other FactBoxes. `FillParent(0)` makes it as tall as the FactBox pane, which suits a part that is the reason the pane is there, such as a chat or a preview. Other FactBoxes in the pane are then pushed below it; pass the number of pixels they should keep as the offset.
+
+The logic is in [height.js](src/ControlAddIn/js/height.js). It relies on class names in the Business Central web client, which Microsoft can change; the three constants at the top of the file are the places to adjust.
 
 ### Keyboard shortcuts
 

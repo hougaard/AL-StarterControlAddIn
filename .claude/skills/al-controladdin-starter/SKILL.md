@@ -130,10 +130,13 @@ A script in a resource page runs again each time `SetHtml` is called. Assign han
 | --- | --- |
 | `UserControlHost` page, or a `Card` where the add-in is the main content | `FillParent(10)` |
 | `Card` with fields above the add-in | `FillParent(Offset)` or `SetHeight(Pixels)` |
-| FactBox (`CardPart`) | `SetHeight(Pixels)` |
+| FactBox (`CardPart`) that shares the pane with other FactBoxes | `SetHeight(Pixels)` |
+| FactBox (`CardPart`) that should take over the whole FactBox pane | `FillParent(0)` |
 | The standard size is good enough | `UseStandardHeight()`, or call nothing |
 
-Do not write your own code that reaches into the host page to size the frame; `height.js` already does it, keeps the listener tidy when the page closes, and restores the original size. It depends on class names in the Business Central web client (`control-addin-form`, `ms-nav-layout-rolecenter`), which is a reason to keep that dependency in one file.
+Do not write your own code that reaches into the host page to size the frame; `height.js` already does it, keeps the listener tidy when the page closes, and restores the original size. It depends on class names in the Business Central web client (`control-addin-form`, `ms-nav-layout-rolecenter`, `ms-nav-layout-factbox-pane-container`), which is a reason to keep that dependency in one file.
+
+In a FactBox, `FillParent` measures the FactBox pane instead of the page: the add-in becomes as tall as the pane, less the pane's own header and the part's caption (the `FACTBOX_CHROME` constant in `height.js`). Other FactBoxes in the same pane end up below it, out of view until the user scrolls; if they should stay visible, pass the height they need as the offset, or use `SetHeight`. Pattern: `src/TestPages/StarterFactBox.Page.al`.
 
 The right `FillParent` offset depends on the page and cannot be worked out without looking at it in a browser. Start with 10. Too small gives the page a scrollbar, too large leaves a gap. Tell the user the value is a starting point to adjust; the **Fill Offset (px)** field on the card test page lets them try values without republishing. Fill mode follows browser window resizes only, so it does not refit when a FastTab above the add-in is collapsed.
 

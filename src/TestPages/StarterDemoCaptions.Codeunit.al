@@ -33,6 +33,8 @@ codeunit 52901 "Starter Demo Captions"
         // factbox.html
         Captions.Add('factBoxTitle', FactBoxTitleLbl);
         Captions.Add('factBoxText', FactBoxTextLbl);
+        Captions.Add('height190', Height190Lbl);
+        Captions.Add('factBoxFill', FactBoxFillLbl);
     end;
 
     var
@@ -55,5 +57,7 @@ codeunit 52901 "Starter Demo Captions"
         MessageHeadingLbl: Label 'Talk to AL';
         SayHelloLbl: Label 'Say hello';
         FactBoxTitleLbl: Label 'Add-in in a FactBox';
-        FactBoxTextLbl: Label 'Held at 190 pixels by SetHeight(190).', Comment = 'SetHeight(190) is code; do not translate it.';
+        FactBoxTextLbl: Label 'SetHeight gives a FactBox an exact height. FillParent lets it take over the whole FactBox pane.', Comment = 'SetHeight and FillParent are procedure names; do not translate them.';
+        Height190Lbl: Label '190 px', Comment = 'px is the abbreviation for pixels.';
+        FactBoxFillLbl: Label 'Fill the pane';
 }

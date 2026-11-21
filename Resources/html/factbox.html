@@ -37,6 +37,13 @@
             font-size: 13px;
         }
 
+        .box-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
         .box button {
             font: inherit;
             padding: 4px 12px;
@@ -62,6 +69,11 @@
         </div>
         <p data-caption="factBoxText"></p>
         <p><code>Resources/html/factbox.html</code></p>
+        <div class="box-buttons">
+            <button type="button" data-message="height-fixed" data-pixels="190" data-caption="height190"></button>
+            <button type="button" data-message="height-fill" data-caption="factBoxFill"></button>
+            <button type="button" data-message="height-standard" data-caption="heightStandard"></button>
+        </div>
         <button type="button" data-message="hello" data-caption="sayHello"></button>
     </div>
 </body>
