@@ -1,0 +1,40 @@
+# AL symbol packages (downloaded with "AL: Download symbols")
+.alpackages/
+
+# AL compiler and language server caches
+.alcache/
+.altemplates/
+.vscode/.alcache/
+
+# Debugger snapshots
+.snapshots/
+
+# Compiled apps and build output
+*.app
+.output/
+
+# Local server and environment settings (every developer has their own)
+.vscode/launch.json
+*.code-workspace
+
+# Rapid Application Development state
+rad.json
+
+# Generated translation file (regenerated on every build)
+*.g.xlf
+
+# Test and performance results
+TestResults*.xml
+bcptTestResults*.json
+
+# Legacy finsql license files
+*.flf
+*.bclicense
+
+# OS and editor leftovers
+Thumbs.db
+Desktop.ini
+.DS_Store
+~$*
+*.bak
+*.tmp

@@ -1,0 +1,35 @@
+{
+  "id": "5ad6d3a3-0ad3-4bff-9286-977a82e6d399",
+  "name": "AL-Starter ControlAddIn",
+  "publisher": "Hougaard",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "29.0.0.0",
+  "idRanges": [
+    {
+      "from": 52900,
+      "to": 52949
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "resourceFolders": [
+    "Resources"
+  ],
+  "runtime": "18.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}

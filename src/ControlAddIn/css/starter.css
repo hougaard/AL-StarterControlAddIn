@@ -1,0 +1,24 @@
+/* Base styles for the add-in's own document (the inside of the iframe).
+   The content fills the frame; the frame's height is set by height.js. */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: transparent;
+    overflow: hidden;
+}
+
+#controlAddIn {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    font-family: "Segoe UI", "Segoe WP", Segoe, Tahoma, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #212121;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--
+        This page is an app resource. AL reads it with NavApp.GetResourceAsText and
+        sends it to the add-in with SetHtml. The styles and the script below travel
+        with it.
+
+        There is no text in this file. Every element that shows text names a caption
+        (data-caption="key"), and AL sends the texts from labels with SetCaptions.
+        The keys are in codeunit "Starter Demo Captions".
+    -->
+    <style>
+        .demo {
+            box-sizing: border-box;
+            min-height: 100%;
+            padding: 16px 20px;
+            background: #ffffff;
+            color: #212121;
+            border: 2px dashed #0b6e75;
+            border-radius: 8px;
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 4px;
+        }
+
+        .demo-header img {
+            width: 48px;
+            height: 48px;
+            flex: none;
+        }
+
+        .demo h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .demo h2 {
+            margin: 20px 0 6px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .demo p {
+            margin: 0 0 8px;
+            max-width: 70ch;
+        }
+
+        .demo .muted {
+            color: #616161;
+        }
+
+        .demo code {
+            display: inline-block;
+            margin: 0 6px 6px 0;
+            padding: 1px 6px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            border-radius: 3px;
+            background: #eef3f3;
+        }
+
+        .demo-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .demo button {
+            font: inherit;
+            padding: 5px 14px;
+            color: #0b6e75;
+            background: #ffffff;
+            border: 1px solid #0b6e75;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .demo button:hover,
+        .demo button:focus-visible {
+            color: #ffffff;
+            background: #0b6e75;
+        }
+
+        .demo input {
+            font: inherit;
+            padding: 5px 8px;
+            width: min(100%, 320px);
+            box-sizing: border-box;
+            border: 1px solid #8a8a8a;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <div class="demo-header">
+            <img id="logo" alt="">
+            <div>
+                <h1 data-caption="title"></h1>
+                <div class="muted"><span data-caption="frameSize"></span> <span id="frame-size"></span></div>
+            </div>
+        </div>
+
+        <h2 data-caption="captionsHeading"></h2>
+        <p data-caption="captionsText"></p>
+
+        <h2 data-caption="resourcesHeading"></h2>
+        <p data-caption="resourcesText"></p>
+        <div>
+            <code>Resources/html/welcome.html</code>
+            <code>Resources/images/logo.svg</code>
+        </div>
+
+        <h2 data-caption="heightHeading"></h2>
+        <p data-caption="heightText"></p>
+        <div class="demo-buttons">
+            <button type="button" data-message="height-standard" data-caption="heightStandard"></button>
+            <button type="button" data-message="height-fill" data-caption="heightFill"></button>
+            <button type="button" data-message="height-fixed" data-pixels="300" data-caption="height300"></button>
+            <button type="button" data-message="height-fixed" data-pixels="600" data-caption="height600"></button>
+        </div>
+
+        <h2 data-caption="keysHeading"></h2>
+        <p data-caption="keysText"></p>
+        <input type="text" data-caption-placeholder="keysPlaceholder" data-caption-aria-label="keysFieldLabel">
+
+        <h2 data-caption="messageHeading"></h2>
+        <div class="demo-buttons">
+            <button type="button" data-message="hello" data-caption="sayHello"></button>
+        </div>
+    </div>
+
+    <script>
+        // Scripts in a resource page run when SetHtml inserts it.
+        (function () {
+            var output = document.getElementById('frame-size');
+            function show() {
+                output.textContent = window.innerWidth + ' x ' + window.innerHeight + ' px';
+            }
+            window.onresize = show; // assigned, not added: a reload replaces the old handler
+            show();
+        })();
+    </script>
+</body>
+</html>

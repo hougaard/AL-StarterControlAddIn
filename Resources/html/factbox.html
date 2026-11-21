@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- No text in this file: the captions come from AL labels (codeunit "Starter Demo Captions"). -->
+    <style>
+        .box {
+            box-sizing: border-box;
+            min-height: 100%;
+            padding: 12px;
+            background: #ffffff;
+            color: #212121;
+            border: 2px dashed #0b6e75;
+            border-radius: 8px;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .box-header img {
+            width: 32px;
+            height: 32px;
+            flex: none;
+        }
+
+        .box p {
+            margin: 0 0 10px;
+        }
+
+        .box code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+        }
+
+        .box button {
+            font: inherit;
+            padding: 4px 12px;
+            color: #0b6e75;
+            background: #ffffff;
+            border: 1px solid #0b6e75;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .box button:hover,
+        .box button:focus-visible {
+            color: #ffffff;
+            background: #0b6e75;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box-header">
+            <img id="logo" alt="">
+            <span data-caption="factBoxTitle"></span>
+        </div>
+        <p data-caption="factBoxText"></p>
+        <p><code>Resources/html/factbox.html</code></p>
+        <button type="button" data-message="hello" data-caption="sayHello"></button>
+    </div>
+</body>
+</html>
